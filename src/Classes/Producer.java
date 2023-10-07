@@ -1,6 +1,6 @@
 package Classes;
 
-public class Producer extends Thread{
+public class Producer implements Runnable{
     private String prod;
     Fifo sor;
     int wait;
@@ -20,9 +20,7 @@ public class Producer extends Thread{
         {
 
             try {
-
                 sor.put(prod+i);
-                Thread.sleep(20);
                 System.out.println("produced "+ prod + "\t" + i + "\t"+ System.currentTimeMillis()%100000+ "\t" + sor.hossz());
                 i++;
                 Thread.sleep(wait);

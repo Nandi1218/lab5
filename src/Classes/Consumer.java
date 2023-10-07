@@ -15,7 +15,6 @@ public class Consumer extends Thread {
     public void run() {
         while (true) {
             try {
-                Thread.sleep(10);
                 System.out.println("consumed " + s +" "+ f.get() + " " + System.currentTimeMillis() % 100000 + "\t" + f.hossz());
                 Thread.sleep(n);
             } catch (InterruptedException e) {

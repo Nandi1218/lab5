@@ -9,7 +9,7 @@ public class Fifo{
         {
             sor.addLast(input);
 
-            notifyAll();
+            notify();
         }
         else {
 
@@ -23,7 +23,7 @@ public class Fifo{
        {
 
            String output =sor.removeFirst();
-           notifyAll();
+           notify();
            return output;
        }
        wait();
