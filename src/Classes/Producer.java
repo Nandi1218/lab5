@@ -1,0 +1,34 @@
+package Classes;
+
+public class Producer extends Thread{
+    private String prod;
+    Fifo sor;
+    int wait;
+
+    public Producer(String prod, Fifo sor, int wait)
+    {
+        this.sor = sor;
+        this.prod = prod;
+        this.wait=wait;
+    }
+@Override
+    public void run(){go();}
+    public void go() {
+
+        int i =0;
+        while(true)
+        {
+
+            try {
+
+                sor.put(prod+i);
+                Thread.sleep(20);
+                System.out.println("produced "+ prod + "\t" + i + "\t"+ System.currentTimeMillis()%100000+ "\t" + sor.hossz());
+                i++;
+                Thread.sleep(wait);
+                } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+}
