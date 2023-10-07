@@ -1,33 +1,35 @@
 package Classes;
 
+import java.util.Arrays;
 import java.util.LinkedList;
 
 public class Fifo{
     LinkedList<String> sor =new LinkedList<>();
     public synchronized void put(String input) throws InterruptedException {
-        if(sor.size()<10)
+        while(true)
         {
-            sor.addLast(input);
-
-            notify();
-        }
-        else {
-
+            if(sor.size()<10)
+            {
+                sor.addLast(input);
+                System.out.println(Arrays.toString(Thread.currentThread().getStackTrace()) +" "+ Thread.currentThread().getId());
+                notifyAll();
+                return;
+            }
             wait();
-            sor.addLast(input);
-
         }
     }
     public synchronized String get() throws InterruptedException {
-       if(!sor.isEmpty())
-       {
-
-           String output =sor.removeFirst();
-           notify();
-           return output;
-       }
-       wait();
-       return sor.removeFirst();
+        while(true)
+        {
+            if(!sor.isEmpty())
+            {
+                String output =sor.removeFirst();
+                notifyAll();
+                System.out.println(Arrays.toString(Thread.currentThread().getStackTrace()) +" "+Thread.currentThread().getId());
+                return output;
+            }
+            wait();
+        }
     }
     public int hossz(){return  sor.size();}
 }
